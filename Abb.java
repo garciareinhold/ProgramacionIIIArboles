@@ -5,70 +5,65 @@ import java.util.List;
 
 public class Abb{
 
-	 private NodoArbol root;
-	 private int height;
-	
-	 private class NodoArbol {
-			
-			private Comparable info;
-			private NodoArbol left;
-			private NodoArbol right;
-			
-			private NodoArbol(Comparable o) {
-				info=o;
-				left=null;
-				right=null;
-			}
-			
-			private NodoArbol() {
-				info=null;
-				left=null;
-				right=null;
-			}
-			
-			protected Comparable getInfo() {
-				return this.info;
-			}
-			
-			protected NodoArbol getLeft() {
-				return this.left;
-			}
-			
-			protected NodoArbol getRight() {
-				return this.right;
-			}
-			
-			protected void setLeft(NodoArbol left) {
-				this.left=left;
-			}
-			
-			protected void setRight(NodoArbol right) {
-				this.right=right;
-			}
+	private class NodoArbol {
 
-			protected void setValor(Comparable info) {
-				this.info=info;
-			}
+		private Comparable info;
+		private NodoArbol left;
+		private NodoArbol right;
 
-			protected boolean isLeaf() {
-				if((this.getLeft()==null)&&(this.getRight()==null)) return true;
-				else return false;
-			}
-			
-			
-
+		private NodoArbol(Comparable o) {
+			info=o;
+			left=null;
+			right=null;
 		}
- 
-	public Abb(Comparable o) {
 
-		this.root= new NodoArbol(o);
+		private NodoArbol() {
+			info=null;
+			left=null;
+			right=null;
+		}
+
+		protected Comparable getInfo() {
+			return this.info;
+		}
+
+		protected NodoArbol getLeft() {
+			return this.left;
+		}
+
+		protected NodoArbol getRight() {
+			return this.right;
+		}
+
+		protected void setLeft(NodoArbol left) {
+			this.left=left;
+		}
+
+		protected void setRight(NodoArbol right) {
+			this.right=right;
+		}
+
+		protected void setValor(Comparable info) {
+			this.info=info;
+		}
+
+		protected boolean isLeaf() {
+			if((this.getLeft()==null)&&(this.getRight()==null)) return true;
+			else return false;
+		}
+
 	}
 	
+	private NodoArbol root;
+	private int height;
+
+	public Abb(Comparable o) {
+		this.root= new NodoArbol(o);
+	}
 
 	public Abb() {
 		this.root=null;
 	}
-
 
 	public boolean isEmpty() {
 		return (root==null);
@@ -96,8 +91,8 @@ public class Abb{
 			if(node.getLeft()!=null) getLeaves(leaves, node.getLeft());
 		}
 	}
-	
-	//Su complejidad es de O (h) donde h es  N * Log 2 N siendo N la cantidad total de nodos
+
+	//Su complejidad es de O (h) depende de su altura, si el árbol es completo su altura es proporcional al logaritmo del número de nodos: h E O(log n ).
 	public boolean hasElem(Comparable o) {
 		if(!this.isEmpty()) return hasElem(this.root, o);
 		else return false;
@@ -113,51 +108,34 @@ public class Abb{
 		else return false;
 	}
 
-//	public void insert(Comparable o) {
-//		this.root= insert(o, root);
-//	}
-//
-//	private NodoArbol insert(Comparable o, NodoArbol nodo) {
-//		if(nodo==null) nodo= new NodoArbol(o);
-//		else if(nodo.getInfo().compareTo(o)>0) {
-//			nodo.setLeft(insert(o, 	nodo.getLeft()));
-//		}
-//		else if(nodo.getInfo().compareTo(o)<0) {
-//			nodo.setRight(insert(o, nodo.getRight()));
-//		}
-//		else; 
-//
-//		return nodo;
-//	}
-	
-	
-	//Su complejidad es de O (h) donde h es  N * Log 2 N siendo N la cantidad total de nodos
+	//Su complejidad es de O (h)
 	public void insert(Comparable o) {
-		if(this.root==null) this.root= new NodoArbol(o);
+		if(this.isEmpty()) {
+			this.root= new NodoArbol(o);
+		}
 		else this.insert(o, this.root);
 	}
 
 	private void insert(Comparable o, NodoArbol nodo) {
-			if(nodo.getInfo().compareTo(o)>0) {
-				if(nodo.getLeft()!=null) {
-					insert(o, nodo.getLeft());
-				}
-					
-				else {
-					nodo.setLeft(new NodoArbol(o));
-				} 
-			}
+		
+		if(nodo.getInfo().compareTo(o)>0) {
 			
-			else if (nodo.getInfo().compareTo(o)<0) {
-				if(nodo.getRight()!=null) {
-					insert(o, nodo.getRight());
-				}
-				else {
-					nodo.setRight(new NodoArbol(o));
-				}
+			if(nodo.getLeft()!=null){
+				insert(o, nodo.getLeft());
 			}
-
+			else {
+				nodo.setLeft(new NodoArbol(o));
+			} 
 		}
+		else if (nodo.getInfo().compareTo(o)<0) {
+			if(nodo.getRight()!=null) {
+				insert(o, nodo.getRight());
+			}
+			else {
+				nodo.setRight(new NodoArbol(o));
+			}
+		}
+	}
 
 	public int getHeight() {
 		this.height=0;
