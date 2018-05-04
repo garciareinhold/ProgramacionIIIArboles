@@ -53,7 +53,7 @@ public class Abb{
 		}
 
 	}
-	
+
 	private NodoArbol root;
 	private int height;
 
@@ -92,7 +92,8 @@ public class Abb{
 		}
 	}
 
-	//Su complejidad es de O (h) depende de su altura, si el árbol es completo su altura es proporcional al logaritmo del número de nodos: h E O(log n ).
+	//En general su complejidad es de O (h) depende de su altura, si el árbol es completo su altura es proporcional al logaritmo del número de nodos: h E O(log n ).
+	//En el peor de los casos que se encuentre totalmente desbalanceado al punto que sea una lista la complejidad es de O(n)
 	public boolean hasElem(Comparable o) {
 		if(!this.isEmpty()) return hasElem(this.root, o);
 		else return false;
@@ -108,7 +109,7 @@ public class Abb{
 		else return false;
 	}
 
-	//Su complejidad es de O (h)
+	//Su complejidad es de O (h) en general y en el peor de los casos es de O (n)... Es decir en el peor de los casos la altura es igual a la cantidad de nodos
 	public void insert(Comparable o) {
 		if(this.isEmpty()) {
 			this.root= new NodoArbol(o);
@@ -117,9 +118,9 @@ public class Abb{
 	}
 
 	private void insert(Comparable o, NodoArbol nodo) {
-		
+
 		if(nodo.getInfo().compareTo(o)>0) {
-			
+
 			if(nodo.getLeft()!=null){
 				insert(o, nodo.getLeft());
 			}
