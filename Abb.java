@@ -109,7 +109,7 @@ public class Abb{
 		else return false;
 	}
 
-	//Su complejidad es de O (h) en general y en el peor de los casos es de O (n)... Es decir en el peor de los casos la altura es igual a la cantidad de nodos
+	//Su complejidad es de O (h). Si se encuentra balanceado sería lo mismo decir O (log n) y en el peor escenario O (n)
 	public void insert(Comparable o) {
 		if(this.isEmpty()) {
 			this.root= new NodoArbol(o);
